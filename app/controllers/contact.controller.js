@@ -25,7 +25,7 @@ exports.findAll = async (req, res, next) => {
     } else {
       documents = await contactService.find({});
     }
-  } catch (error) {
+  } catch (error) { 
     return next(
       new ApiError(500, "An error occurred while creating the contact")
     );
@@ -52,6 +52,7 @@ exports.update = async (req, res, next) => {
   }
   try {
     const contactService = new ContactService(MongoDB.client);
+    
     const document = await contactService.update(req.params.id, req.body);
     if (!document) {
       return next(new ApiError(400, "contact not found"));
@@ -94,7 +95,7 @@ exports.deleteAll = async (req, res, next) => {
 exports.findAllFavorite = async (req, res, next) => {
   try {
     const contactService = new ContactService(MongoDB.client);
-    const documents = await contactService.findALLFavorite();
+    const documents = await contactService.findFavorite();
     return res.send(documents);
   } catch (error) {
     return next(
